@@ -20,16 +20,27 @@ int main(void)
         scanf("%d",&temp);
         if((temp<=0)|(temp>=30)) return 0;
         Narr[i]=temp;
-        scanf("%d", &temp);
-        if (((temp <= 0) | (temp >= 30))|(temp>temp1))
+        scanf("%d", &temp1);
+        if (((temp1 <= 0) | (temp1 >= 30))|(temp>temp1))
             return 0;
-        Marr[i] = temp;
+        Marr[i] = temp1;
+    }
+    //Marr 는 공간 절약을 위해 개수를 저장하던 임무를 다하면 
+    //바로 result 값이 들어가 result[n] 의 역할을 수행.
+    for(int i=0;i<n;i++)
+    {
+        int temp=Marr[i]-Narr[i];
+        int result=0;
+        for(int j=1;j<temp;j++)
+        {
+            result += addall(j);
+        }
+        Marr[i]=result;
     }
     for(int i=0;i<n;i++)
     {
-        for(int j=0;j<)
+        printf("%d\n",Marr[i]);
     }
-    
     free(Narr);
     free(Marr);
     return 0;
@@ -42,6 +53,11 @@ int addall(int x)
 }
 
 /*
+12-54321
+23-4321
+34-321
+45-21
+56-1
 ㄱ 1
 ㄴ 2
 ㄷ 3 
