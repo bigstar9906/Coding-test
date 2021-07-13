@@ -29,9 +29,9 @@ int main(void)
     //바로 result 값이 들어가 result[n] 의 역할을 수행.
     for(int i=0;i<n;i++)
     {
-        int temp=Marr[i]-Narr[i];
+        int temp=Marr[i]-Narr[i]+1;
         int result=0;
-        for(int j=1;j<temp;j++)
+        for(int j=1;j<temp+1;j++)
         {
             result += addall(j);
         }
@@ -53,6 +53,11 @@ int addall(int x)
 }
 
 /*
+
+지금 개수 세는 방식이 잘못됬음 다시 수정필요.
+1 4
+2 3
+
 12-54321
 23-4321
 34-321
