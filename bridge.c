@@ -3,7 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-int addall(int,int);
+int Combine(int,int);
+int facto(int);
 
 int main(void)
 {
@@ -27,23 +28,26 @@ int main(void)
     }
     //Marr 는 공간 절약을 위해 개수를 저장하던 임무를 다하면 
     //바로 result 값이 들어가 result[n] 의 역할을 수행.
+    
     for(int i=0;i<n;i++)
     {
-        
-        //combine return
+    printf("\n\n%d,%d\n",Marr[i],Narr[i]);
+    printf("%d\n",Combine(Marr[i],Narr[i]));        
     }
-    for(int i=0;i<n;i++)
-    {
-        printf("%d\n",Marr[i]);
-    }
+    
     free(Narr);
     free(Marr);
     return 0;
 }
 
+int facto(int x)
+{
+    if((x==1)|x==0)return 1;
+    return x*facto(x-1);
+}
+
 
 int Combine(int x,int y)
 {
-    int temp;
-    return 0;
+    return (facto(x)/facto(y))/facto(x-y);
 }
