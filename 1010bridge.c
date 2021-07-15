@@ -3,9 +3,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-int Combine(int,int);
-int facto(int);
-
+unsigned long long Combine(int,int);
+unsigned long long facto(int,int);
+int bigger (int, int);
 int main(void)
 {
  int n;
@@ -26,13 +26,10 @@ int main(void)
             return 0;
         Marr[i] = temp1;
     }
-    //Marr 는 공간 절약을 위해 개수를 저장하던 임무를 다하면 
-    //바로 result 값이 들어가 result[n] 의 역할을 수행.
     
     for(int i=0;i<n;i++)
     {
-    printf("\n\n%d,%d\n",Marr[i],Narr[i]);
-    printf("%d\n",Combine(Marr[i],Narr[i]));        
+    printf("%llu\n",Combine(Marr[i],Narr[i]));        
     }
     
     free(Narr);
@@ -40,14 +37,25 @@ int main(void)
     return 0;
 }
 
-int facto(int x)
+
+int bigger (int x, int y)
 {
-    if((x==1)|x==0)return 1;
-    return x*facto(x-1);
+    if(x>=y) return x;
+    else return y;
 }
 
-
-int Combine(int x,int y)
+unsigned long long Combine(int x,int y)
 {
-    return (facto(x)/facto(y))/facto(x-y);
+    int temp = bigger(y,x-y);
+    int temp1;
+    if (temp == y) temp1 = x-y;
+    else temp1 = y;
+    return facto(x,temp)/facto(temp1,0);
+}
+
+unsigned long long facto(int x,int y)
+{
+    if((x==1)|x==0)return 1;
+    if(x==y) return 1;
+    return (x*facto(x-1,y));
 }
