@@ -1,10 +1,10 @@
 # [level 2] 피보나치 수 - 12945 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12945?language=cpp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12945?language=python3) 
 
 ### 성능 요약
 
-메모리: 4.19 MB, 시간: 0.95 ms
+메모리: 13.9 MB, 시간: 23.82 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 2월 5일 9:14:58
+2024년 2월 5일 9:32:31
 
 ### 문제 설명
 
