@@ -7,18 +7,11 @@ visited = [False] * (n+1)
 def dfs(node, v, visited):
   visited[v] = True
   print(v,end=' ')
-  queue = []
   for i in range(0,m):
     if node[i][0]==v and not visited[node[i][1]]:
-      queue.append(node[i][1])
+      dfs(node,node[i][1],visited)
     elif node[i][1]==v and not visited[node[i][0]]:
-      queue.append(node[i][0])
-    if queue:
-      queue.sort()
-      for i in queue:
-        if not visited[i]:
-          dfs(node,i,visited)
-      
+      dfs(node,node[i][0],visited)
   return
 
 def bfs(node, v, visited):
