@@ -1,12 +1,4 @@
-SELECT
-    C.ID
-    , C.GENOTYPE
-    , P.GENOTYPE PARENT_GENOTYPE
-FROM
-    ECOLI_DATA C
-    INNER JOIN ECOLI_DATA P
-        ON C.PARENT_ID = P.ID
-WHERE
-    C.GENOTYPE & P.GENOTYPE = P.GENOTYPE
-ORDER BY
-    C.ID
+-- 코드를 작성해주세요
+select *
+from ECOLI_DATA as p, ECOLI_DATA as c
+where c.parent_id=p.id
