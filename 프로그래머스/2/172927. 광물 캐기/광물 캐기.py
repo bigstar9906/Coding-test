@@ -1,89 +1,55 @@
+from collections import deque
+
 def solution(picks, minerals):
-    answer = 0
+    # [다이아, 철, 돌]
+    iron = {"diamond":5,"iron":1,"stone":1}
+    stone = {"diamond":25,"iron":5,"stone":1}
     cnt = 0
-    sets = []
-    values = dict()
-    values["diamond"] = 25
-    values["iron"] = 5
-    values["stone"] = 1
-    left = -1
-    for mine in minerals:
-        if cnt%5==0:
-            sets.append(0)
-        sets[cnt//5]+=values[mine]
-        cnt+=1
-    if len(sets)>(picks[0]+picks[1]+picks[2]):
-        sets = sets[:picks[0]+picks[1]+picks[2]]
-    elif len(minerals)%5!=0:
-        left = sets[-1]
-        del sets[-1]
-    
-    sets.sort(reverse=True)
-    for s in sets:
-        if s<left:
-            if picks[0]>0:                    
-                answer+=left//25
-                left %= 25
-                answer += left//5
-                left%= 5
-                answer += left
-                picks[0]-=1
-            elif picks[1]>0:
-                answer+=left//25*5
-                left%=25
-                answer+=left//5
-                left%=5
-                answer+=s
-                picks[1]-=1
-            elif picks[2]>0:
-                answer+=left
-                picks[2]-=1
-            left=-1
-        if picks[0]>0:
-            if s==25:
-                answer+=5
-                picks[0]-=1
-                continue
-            if s==5:
-                answer+=5
-                picks[0]-=1
-                continue
-            answer+=s//25
-            s %= 25
-            answer += s//5
-            s%= 5
-            answer += s
-            picks[0]-=1
-        elif picks[1]>0:
-            if s==5:
-                answer+=5
-                picks[1]-=1
-                continue
-            answer+=s//25*5
-            s%=25
-            answer+=s//5
-            s%=5
-            answer+=s
-            picks[1]-=1
-        elif picks[2]>0:
-            answer+=s
-            picks[2]-=1
-    if left >0:
-        if picks[0]>0:                    
-            answer+=left//25
-            left %= 25
-            answer += left//5
-            left%= 5
-            answer += left
-            picks[0]-=1
-        elif picks[1]>0:
-            answer+=left//25*5
-            left%=25
-            answer+=left//5
-            left%=5
-            answer+=left
-            picks[1]-=1
-        elif picks[2]>0:
-            answer+=left
-            picks[2]-=1
+    answer = 0
+    temp = []
+    picks = deque(picks)
+    tt = []
+    minerals = minerals[:sum(picks)*5]
+    for i, p in enumerate(picks):
+        if p != 0:
+            tt.append((i, p))
+    # if len(tt) == 1:
+    #     #다이아
+    #     if tt[0][0] == 0:
+    #         return min(tt[0][1]*5,len(minerals))
+    #     elif tt[0][0] == 1:
+    #         for m in minerals:
+    #             for _ in range(tt[0][1]*5):
+    #                 answer += iron[m]
+    #         return answer
+    #     elif tt[0][0] == 2:
+    #         for m in minerals:
+    #             for _ in range(tt[0][1]*5):
+    #                 answer += stone[m]
+    #         return answer
+            
+    for i in range(0,len(minerals),5):
+        a = minerals[i:i+5]
+        b = sum([stone[k] for k in a])
+        temp.append((minerals[i:i+5], b))
+    temp = sorted(temp, key=lambda x: (x[1], len(x[0])))
+    print(temp)
+    cnt = 0
+    while temp:
+        if picks:
+            a = picks.popleft()
+        else:
+            break
+        for _ in range(a):
+            if temp:
+                b = temp.pop()[0]
+                if cnt == 0:
+                    answer += len(b)
+                elif cnt == 1:
+                    answer += sum([iron[h] for h in b])
+                elif cnt == 2:
+                    answer += sum([stone[h] for h in b])
+            else:
+                break
+        cnt += 1
     return answer
