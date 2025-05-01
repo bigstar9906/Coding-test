@@ -1,16 +1,14 @@
 def solution(phone_book):
-    answer = True
-    numlen = dict()
-    phone_book.sort(key = lambda x:len(x))
+    phone_book = sorted(phone_book,key=lambda x: len(x))
+    num_hash = dict()
     for num in phone_book:
-        for length in range(1,len(num)+1):
-            if length in numlen:
-                if num[:length] in numlen[length]:
+        if len(num_hash)==0:
+            num_hash[num]=1
+        else:
+            current=""
+            for n in num:
+                current+=n
+                if current in num_hash:
                     return False
-        if len(num) in numlen:
-            numlen[len(num)][num] = 1
-        else :
-            new = dict()
-            new[num] = 1
-            numlen[len(num)] = new        
-    return answer
+            num_hash[num]=1
+    return True
