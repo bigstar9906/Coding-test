@@ -1,12 +1,18 @@
 def solution(prices):
     answer = []
-    n=len(prices)
-    for i in range(n):
-        c=0
-        for j in range(i+1,n):
-            if prices[j]<prices[i]:
-                c+=1
-                break
-            c+=1
-        answer.append(c)
+    d = dict()
+    for i in range(len(prices)):
+        answer.append(len(prices)-i-1)
+        delete = []
+        for k in d.keys():
+            if k>prices[i]:
+                for idx in d[k]:
+                    answer[idx]=i-idx
+                delete.append(k)
+        for di in delete:
+            del d[di]
+        if prices[i] in d:
+            d[prices[i]].append(i)
+        else:
+            d[prices[i]]=[i]
     return answer
