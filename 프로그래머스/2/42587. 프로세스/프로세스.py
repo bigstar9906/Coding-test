@@ -1,15 +1,22 @@
+from collections import Counter,deque
 def solution(priorities, location):
     answer = 1
+    cnt = Counter()
+    dque = deque()
+    idx=0
+    for p in priorities:
+        cnt[p]+=1
+        dque.append({"key":p,"location":idx})
+        idx+=1
     while True:
-        prior = max(priorities)
-        idx = priorities.index(prior)
-        if idx==location:
+        current = dque.popleft()
+        if current["key"]<max(cnt.keys()):
+            dque.append(current)
+        elif current["location"]==location:
             return answer
-        elif idx<location:
-            location -= idx+1
-        else :
-            location = len(priorities)-idx+location-1
-        del priorities[idx]
-        priorities = priorities[idx:]+priorities[:idx]
-        answer+=1
-    
+        else:
+            cnt[current["key"]]-=1
+            if cnt[current["key"]]==0:
+                del cnt[current["key"]]
+            answer+=1
+    return 0
