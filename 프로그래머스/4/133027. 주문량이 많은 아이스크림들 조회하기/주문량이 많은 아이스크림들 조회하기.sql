@@ -1,4 +1,4 @@
-select  f.FLAVOR
-from first_half as f left join july as j on f.flavor = j.flavor 
-group by f.flavor
-order by f.total_order + sum(j.total_order)  desc limit 3
+-- 코드를 입력하세요
+SELECT F.FLAVOR FROM FIRST_HALF AS F JOIN (SELECT JU.FLAVOR, SUM(JU.TOTAL_ORDER) AS JULY_ORDER FROM JULY AS JU GROUP BY JU.FLAVOR) AS J ON F.FLAVOR = J.FLAVOR
+ORDER BY F.TOTAL_ORDER + J.JULY_ORDER DESC
+limit 3
